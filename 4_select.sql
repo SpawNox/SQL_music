@@ -1,7 +1,7 @@
 SELECT a.albuma_name FROM albums a
-JOIN artist_album aa ON aa.album_id = a.album_id 
-JOIN genre_artist ga ON ga.artist_id = aa.album_id
-GROUP BY a.albuma_name 
+JOIN artist_album aa ON aa.album_id = a.album_id
+JOIN genre_artist ga ON ga.artist_id = aa.artist_id 
+GROUP BY a.albuma_name, ga.artist_id
 HAVING count(ga.artist_id) > 1;
 
 SELECT t.track_name FROM tracks t

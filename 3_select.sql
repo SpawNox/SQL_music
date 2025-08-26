@@ -10,10 +10,13 @@ SELECT a.albuma_name "Альбом", AVG(t.duration) "Средняя продо�
 JOIN albums a ON a.album_id = t.album_id 
 GROUP BY a.albuma_name;
 
-SELECT ar.artist_name "Исполнитель" FROM artist_album aa 
-JOIN albums a ON a.album_id = aa.album_id 
-JOIN artists ar ON ar.artist_id = aa.artist_id
-WHERE a.album_year != 2020;
+SELECT a.artist_name FROM artists a
+WHERE a.artist_name NOT IN (
+SELECT a.artist_name  FROM artists a
+JOIN artist_album aa ON aa.artist_id = a.artist_id
+JOIN albums al ON al.album_id = aa.album_id
+WHERE al.album_year = 2020
+);
 
 SELECT c.collection_name "Сборник" FROM track_collection tc 
 JOIN collections c ON c.collection_id = tc.collection_id
